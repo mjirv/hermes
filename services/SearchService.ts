@@ -1,11 +1,11 @@
 interface ISearchService {
   query: (
     query: string
-  ) => Record<string, Array<Record<string, string | number>>>;
+  ) => Promise<Record<string, Array<Record<string, string | number>>>>;
 }
 
 class MockSearchService implements ISearchService {
-  query(query: string) {
+  async query(query: string) {
     const mockReturnData = {
       orders: [
         {
@@ -31,9 +31,42 @@ class MockSearchService implements ISearchService {
       ],
     };
 
-    return mockReturnData;
+    return Promise.resolve(mockReturnData);
   }
 }
 
-const instance = new MockSearchService();
+class SearchService implements ISearchService {
+  private url: string;
+  constructor() {
+    if (!process.env.METRICS_API_URL) {
+      throw new Error("No metrics API url provided");
+    }
+    this.url = process.env.METRICS_API_URL;
+  }
+
+  async query(query: string) {
+    const res = await fetch(this.url, {
+      headers: {
+        "Content-Type": "application/graphql",
+        Accept: "application/json",
+      },
+      method: "POST",
+      body: `query: {
+      orders(grain: "year") {
+        customer_id
+        period
+        orders
+      }
+    }`,
+    });
+    console.info(await res.text());
+    const data = await res.json();
+
+    return data;
+  }
+}
+
+const instance = process.env.METRICS_API_URL
+  ? new SearchService()
+  : new MockSearchService();
 export default instance;
