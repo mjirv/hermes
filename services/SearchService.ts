@@ -47,20 +47,15 @@ class SearchService implements ISearchService {
   async query(query: string) {
     const res = await fetch(this.url, {
       headers: {
-        "Content-Type": "application/graphql",
-        Accept: "application/json",
+        "content-type": "application/json",
+        accept: "application/json",
       },
       method: "POST",
-      body: `query: {
-      orders(grain: "year") {
-        customer_id
-        period
-        orders
-      }
-    }`,
+      body: JSON.stringify({
+        query: '{orders(grain: "year") {customer_id\nperiod\norders}}',
+      }),
     });
-    console.info(await res.text());
-    const data = await res.json();
+    const { data } = await res.json();
 
     return data;
   }
