@@ -1,3 +1,5 @@
+import { Configuration, OpenAIApi } from "openai";
+
 interface ISearchService {
   query: (
     query: string
@@ -37,14 +39,28 @@ class MockSearchService implements ISearchService {
 
 class SearchService implements ISearchService {
   private url: string;
+  private openai: OpenAIApi;
   constructor() {
     if (!process.env.METRICS_API_URL) {
       throw new Error("No metrics API url provided");
     }
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error("No OpenAI API key provided");
+    }
     this.url = process.env.METRICS_API_URL;
+    const configuration = new Configuration({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+    this.openai = new OpenAIApi(configuration);
+  }
+
+  private getGraphQLQuery(query: string): string {
+    // TODO: implement this
+    return '{orders(grain: "year") {customer_id\nperiod\norders}}';
   }
 
   async query(query: string) {
+    const graphQLQuery = this.getGraphQLQuery(query);
     const res = await fetch(this.url, {
       headers: {
         "content-type": "application/json",
@@ -52,7 +68,7 @@ class SearchService implements ISearchService {
       },
       method: "POST",
       body: JSON.stringify({
-        query: '{orders(grain: "year") {customer_id\nperiod\norders}}',
+        query: graphQLQuery,
       }),
     });
     const { data } = await res.json();
