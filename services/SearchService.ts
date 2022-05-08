@@ -22,11 +22,13 @@ class SearchService implements ISearchService {
   }
 
   async query(query: string) {
+    console.debug(`Starting query`, { query });
     const graphQLSchema = await this.metricService.getGraphQLSchema();
     const graphQLQuery = await this.nlpService.getGraphQLQueryFromText({
       query,
       graphQLSchema,
     });
+    console.debug(`Query finished`, { query });
     return await metricService.query(graphQLQuery);
   }
 }

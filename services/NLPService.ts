@@ -38,6 +38,7 @@ class OpenAIService implements NLPService {
     query: string;
     graphQLSchema: string;
   }): Promise<string> {
+    console.debug(`Getting graphQL query`);
     const response = await this.client.createCompletion("code-davinci-002", {
       prompt:
         "const schema = gql`" +
@@ -56,6 +57,7 @@ class OpenAIService implements NLPService {
       throw new Error("Invalid request; no choices received from OpenAI");
     }
     const [{ text: graphQLQuery }] = response.data.choices;
+    console.debug(`GraphQL query finished`, { graphQLQuery });
     if (!graphQLQuery) {
       throw new Error("Invalid request; no completion received from OpenAI");
     }

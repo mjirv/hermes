@@ -80,24 +80,27 @@ class DemeterMetricService implements MetricService {
   }
 
   async getGraphQLSchema(): Promise<string> {
+    console.debug(`Getting graphQL schema`);
     const res = await this.fetch(
       JSON.stringify({ query: getIntrospectionQuery() })
     );
     const { data } = await res.json();
     const schema = printSchema(buildClientSchema(data));
-    console.debug(schema);
+    console.debug(`Got GraphQL schema`, { schema });
     return schema;
   }
 
   async query(
     graphQLQuery: string
   ): Promise<Record<string, Record<string, string | number>[]>> {
+    console.debug(`Starting metrics query`);
     const res = await this.fetch(
       JSON.stringify({
         query: graphQLQuery,
       })
     );
     const { data } = await res.json();
+    console.debug(`Metrics query succeeded`);
 
     return data;
   }
