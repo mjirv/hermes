@@ -82,7 +82,9 @@ class DemeterMetricService implements MetricService {
   async getGraphQLSchema(): Promise<string> {
     const res = await this.fetch(getIntrospectionQuery());
     const { data } = await res.json();
-    return printSchema(buildClientSchema(data));
+    const schema = printSchema(buildClientSchema(data));
+    console.debug(schema);
+    return schema;
   }
 
   async query(
