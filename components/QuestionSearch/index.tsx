@@ -6,7 +6,11 @@ const QuestionSearch = ({
   setData,
 }: {
   cardStyle: string;
-  setData: Dispatch<SetStateAction<Record<string, string> | undefined>>;
+  setData: Dispatch<
+    SetStateAction<
+      Record<string, Array<Record<string, string | number>>> | undefined
+    >
+  >;
 }) => {
   const [query, setQuery] = useState("");
   const handleSubmit = useCallback(async () => {

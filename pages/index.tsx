@@ -8,7 +8,9 @@ import QuestionSearch from "../components/QuestionSearch";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
-  const [data, setData] = useState<Record<string, string> | undefined>();
+  const [data, setData] = useState<
+    Record<string, Array<Record<string, string | number>>> | undefined
+  >();
 
   return (
     <div className={styles.container}>
