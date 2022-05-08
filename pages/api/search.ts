@@ -7,7 +7,6 @@ export default async function handler(
     data: Record<string, Array<Record<string, string | number>>>;
   }>
 ) {
-  const { query } = req.body;
-  const data = await searchService.query(query);
+  const data = await searchService.query(req.body);
   res.status(200).json({ data });
 }

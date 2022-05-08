@@ -22,14 +22,18 @@ class SearchService implements ISearchService {
   }
 
   async query(query: string) {
+    if (!query) {
+      throw new Error("Query must be provided");
+    }
     console.debug(`Starting query`, { query });
     const graphQLSchema = await this.metricService.getGraphQLSchema();
     const graphQLQuery = await this.nlpService.getGraphQLQueryFromText({
       query,
       graphQLSchema,
     });
+    const data = await metricService.query(graphQLQuery);
     console.debug(`Query finished`, { query });
-    return await metricService.query(graphQLQuery);
+    return data;
   }
 }
 

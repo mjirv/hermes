@@ -19,7 +19,7 @@ const QuestionSearch = ({
     setLoading(true);
     const res = await fetch("/api/search", {
       method: "POST",
-      body: JSON.stringify(query),
+      body: JSON.stringify({ query }),
     });
     const { data } = await res.json();
     setData(data);
