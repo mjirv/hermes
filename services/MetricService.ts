@@ -1,3 +1,5 @@
+import { getIntrospectionQuery, buildClientSchema, printSchema } from "graphql";
+
 export interface MetricService {
   getGraphQLSchema(): Promise<string>;
   query(
@@ -66,8 +68,21 @@ class DemeterMetricService implements MetricService {
     this.url = url;
   }
 
-  getGraphQLSchema(): Promise<string> {
-    throw new Error("Not implemented");
+  private async fetch(body: string): Promise<Response> {
+    return await fetch(this.url, {
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+      method: "POST",
+      body,
+    });
+  }
+
+  async getGraphQLSchema(): Promise<string> {
+    const res = await this.fetch(getIntrospectionQuery());
+    const { data } = await res.json();
+    return printSchema(buildClientSchema(data));
   }
 
   async query(
