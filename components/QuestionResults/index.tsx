@@ -13,7 +13,14 @@ const QuestionResults = ({
     selector: (row: Record<string, string | number>) => row[key],
     sortable: true,
   }));
-  return <DataTable columns={columns} data={dataToDisplay} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={dataToDisplay}
+      pagination={true}
+      paginationPerPage={20}
+    />
+  );
 };
 
 export default QuestionResults;

@@ -92,16 +92,11 @@ class DemeterMetricService implements MetricService {
   async query(
     graphQLQuery: string
   ): Promise<Record<string, Record<string, string | number>[]>> {
-    const res = await fetch(this.url, {
-      headers: {
-        "content-type": "application/json",
-        accept: "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
+    const res = await this.fetch(
+      JSON.stringify({
         query: graphQLQuery,
-      }),
-    });
+      })
+    );
     const { data } = await res.json();
 
     return data;
