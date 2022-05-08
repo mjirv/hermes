@@ -11,6 +11,7 @@ const Home: NextPage = () => {
   const [data, setData] = useState<
     Record<string, Array<Record<string, string | number>>> | undefined
   >();
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -26,8 +27,12 @@ const Home: NextPage = () => {
           Get started by asking a question below!
         </p>
 
-        <QuestionSearch cardStyle={styles.card} setData={setData} />
-        <QuestionResults data={data} />
+        <QuestionSearch
+          cardStyle={styles.card}
+          setData={setData}
+          setLoading={setLoading}
+        />
+        <QuestionResults data={data} loading={loading} />
       </main>
 
       <footer className={styles.footer}>

@@ -2,8 +2,10 @@ import DataTable from "react-data-table-component";
 
 const QuestionResults = ({
   data,
+  loading = false,
 }: {
   data: Record<string, Array<Record<string, string | number>>> | undefined;
+  loading?: boolean;
 }) => {
   if (!data) return null;
   const dataToDisplay = data["orders"];
@@ -19,6 +21,7 @@ const QuestionResults = ({
       data={dataToDisplay}
       pagination={true}
       paginationPerPage={20}
+      progressPending={loading}
     />
   );
 };
