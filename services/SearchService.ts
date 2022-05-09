@@ -2,9 +2,10 @@ import metricService, { MetricService } from "./MetricService";
 import nlpService, { NLPService } from "./NLPService";
 
 interface ISearchService {
-  query: (
-    query: string
-  ) => Promise<Record<string, Array<Record<string, string | number>>>>;
+  query: (query: string) => Promise<{
+    graphQLQuery: string;
+    data: Record<string, Array<Record<string, string | number>>>;
+  }>;
 }
 
 class SearchService implements ISearchService {
@@ -33,7 +34,7 @@ class SearchService implements ISearchService {
     });
     const data = await metricService.query(graphQLQuery);
     console.debug(`Query finished`, { query });
-    return data;
+    return { graphQLQuery, data };
   }
 }
 

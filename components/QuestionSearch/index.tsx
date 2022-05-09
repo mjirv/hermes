@@ -4,6 +4,7 @@ import styles from "./QuestionSearch.module.css";
 const QuestionSearch = ({
   cardStyle,
   setData,
+  setGraphQLQuery,
   setLoading,
 }: {
   cardStyle: string;
@@ -12,11 +13,13 @@ const QuestionSearch = ({
       Record<string, Array<Record<string, string | number>>> | undefined
     >
   >;
+  setGraphQLQuery: Dispatch<SetStateAction<string>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [query, setQuery] = useState("");
   const handleSubmit = useCallback(async () => {
     setLoading(true);
+    setGraphQLQuery("");
     const res = await fetch("/api/search", {
       method: "POST",
       headers: {
@@ -25,10 +28,11 @@ const QuestionSearch = ({
       },
       body: JSON.stringify({ query }),
     });
-    const { data } = await res.json();
+    const { graphQLQuery, data } = await res.json();
     setData(data);
+    setGraphQLQuery(graphQLQuery);
     setLoading(false);
-  }, [query, setData, setLoading]);
+  }, [query, setData, setGraphQLQuery, setLoading]);
   return (
     <div className={styles.searchContainer}>
       <textarea

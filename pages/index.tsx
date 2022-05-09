@@ -11,6 +11,7 @@ const Home: NextPage = () => {
   const [data, setData] = useState<
     Record<string, Array<Record<string, string | number>>> | undefined
   >();
+  const [graphQLQuery, setGraphQLQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
   return (
@@ -30,8 +31,14 @@ const Home: NextPage = () => {
         <QuestionSearch
           cardStyle={styles.card}
           setData={setData}
+          setGraphQLQuery={setGraphQLQuery}
           setLoading={setLoading}
         />
+        {graphQLQuery && (
+          <div className={styles.code}>
+            <text>{graphQLQuery}</text>
+          </div>
+        )}
         <QuestionResults data={data} loading={loading} />
       </main>
 
