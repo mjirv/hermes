@@ -65,7 +65,39 @@ class OpenAIService implements NLPService {
   }
 }
 
+class HermesApiService implements NLPService {
+  private url: string;
+  private apiKey: string;
+  constructor(url: string | undefined, apiKey: string | undefined) {
+    if (!url || !apiKey) {
+      throw new Error("must provide HERMES_API_URL and HERMES_API_KEY");
+    }
+    this.url = url;
+    this.apiKey = apiKey;
+  }
+  async getGraphQLQueryFromText({
+    query,
+    graphQLSchema,
+  }: {
+    query: string;
+    graphQLSchema?: string | undefined;
+  }): Promise<string> {
+    const res = await fetch(this.url, {
+      headers: {
+        authorization: `Bearer ${this.apiKey}`,
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({ query, graphQLSchema }),
+    });
+    const { graphQLQuery } = await res.json();
+    return graphQLQuery;
+  }
+}
+
 const instance = process.env.OPENAI_API_KEY
   ? new OpenAIService()
+  : process.env.HERMES_API_KEY
+  ? new HermesApiService(process.env.HERMES_API_URL, process.env.HERMES_API_KEY)
   : new MockNLPService();
 export default instance;
