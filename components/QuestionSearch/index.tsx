@@ -19,6 +19,10 @@ const QuestionSearch = ({
     setLoading(true);
     const res = await fetch("/api/search", {
       method: "POST",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+      },
       body: JSON.stringify({ query }),
     });
     const { data } = await res.json();
