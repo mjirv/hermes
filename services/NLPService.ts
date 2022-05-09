@@ -45,8 +45,8 @@ class OpenAIService implements NLPService {
         graphQLSchema +
         "`\n\n/* don't fill in start_date and end_date */\n/* generates a query using `schema` to tell me: " +
         query +
-        " */\nconst generateQuery: string = () => {\n  return gql`\n    ",
-      suffix: "\n  `\n}",
+        " */\nconst generateQuery = gql`\n    ",
+      suffix: "\n  `",
       temperature: 0,
       max_tokens: 256,
       top_p: 1,
