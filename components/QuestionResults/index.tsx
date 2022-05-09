@@ -7,7 +7,11 @@ const QuestionResults = ({
   data: Record<string, Array<Record<string, string | number>>> | undefined;
   loading?: boolean;
 }) => {
+  if (loading) {
+    return <DataTable data={[]} columns={[]} progressPending={true} />;
+  }
   if (!data) return null;
+
   const dataToDisplay = data["orders"];
   console.info(JSON.stringify(dataToDisplay));
   const columns = Object.keys(dataToDisplay[0]).map((key) => ({

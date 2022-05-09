@@ -34,16 +34,24 @@ const QuestionSearch = ({
     setLoading(false);
   }, [query, setData, setGraphQLQuery, setLoading]);
   return (
-    <div className={styles.searchContainer}>
-      <textarea
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleSubmit();
+      }}
+      className={styles.searchContainer}
+    >
+      <input
+        type="text"
         className={cardStyle}
         placeholder={"How many orders were placed in Q4 2021?"}
         onChange={(e) => setQuery(e.target.value)}
-      ></textarea>
-      <button className={cardStyle} onClick={handleSubmit}>
+      ></input>
+      <button type="submit" className={cardStyle}>
         Submit
       </button>
-    </div>
+    </form>
   );
 };
 
