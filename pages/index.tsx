@@ -34,12 +34,14 @@ const Home: NextPage = () => {
           setGraphQLQuery={setGraphQLQuery}
           setLoading={setLoading}
         />
-        {graphQLQuery && (
-          <div className={styles.code}>
-            <text>{graphQLQuery}</text>
-          </div>
-        )}
-        <QuestionResults data={data} loading={loading} />
+        <div className={styles.resultsContainer}>
+          {graphQLQuery && (
+            <div className={styles.code}>
+              <text>{graphQLQuery}</text>
+            </div>
+          )}
+          <QuestionResults data={data} loading={loading} />
+        </div>
       </main>
 
       <footer className={styles.footer}>
