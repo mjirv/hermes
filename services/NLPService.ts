@@ -1,5 +1,3 @@
-import { Configuration, OpenAIApi } from "openai";
-
 export interface NLPService {
   getGraphQLQueryFromText({
     query,
