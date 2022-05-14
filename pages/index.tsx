@@ -42,7 +42,7 @@ const Home: NextPage = () => {
             </div>
           )}
           {errors ? (
-            `Error: ${JSON.stringify(errors)}`
+            <text>{`Error: ${JSON.stringify(errors)}`}</text>
           ) : (
             <QuestionResults data={data} loading={loading} />
           )}
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
       </main>
 
       <footer className={styles.footer}>
-        <a
+        {/* <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
-        </a>
+        </a> */}
       </footer>
     </div>
   );
