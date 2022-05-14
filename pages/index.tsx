@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import QuestionResults from "../components/QuestionResults";
 import QuestionSearch from "../components/QuestionSearch";
@@ -11,6 +10,7 @@ const Home: NextPage = () => {
   const [data, setData] = useState<
     Record<string, Array<Record<string, string | number>>> | undefined
   >();
+  const [errors, setErrors] = useState<Array<any> | undefined>(undefined);
   const [graphQLQuery, setGraphQLQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -31,6 +31,7 @@ const Home: NextPage = () => {
         <QuestionSearch
           cardStyle={styles.card}
           setData={setData}
+          setErrors={setErrors}
           setGraphQLQuery={setGraphQLQuery}
           setLoading={setLoading}
         />
@@ -40,7 +41,11 @@ const Home: NextPage = () => {
               <text>{graphQLQuery}</text>
             </div>
           )}
-          <QuestionResults data={data} loading={loading} />
+          {errors ? (
+            `Error: ${JSON.stringify(errors)}`
+          ) : (
+            <QuestionResults data={data} loading={loading} />
+          )}
         </div>
       </main>
 

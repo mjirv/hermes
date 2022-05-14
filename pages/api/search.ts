@@ -6,6 +6,7 @@ export default async function handler(
   res: NextApiResponse<{
     graphQLQuery: string;
     data: Record<string, Array<Record<string, string | number>>>;
+    errors: any | undefined;
   }>
 ) {
   const { query } = req.body;

@@ -12,7 +12,7 @@ const QuestionResults = ({
   }
   if (!data) return null;
 
-  const dataToDisplay = data["orders"];
+  const dataToDisplay = data[Object.keys(data)[0]];
   console.info(JSON.stringify(dataToDisplay));
   const columns = Object.keys(dataToDisplay[0]).map((key) => ({
     name: key,

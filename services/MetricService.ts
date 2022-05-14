@@ -2,9 +2,10 @@ import { getIntrospectionQuery, buildClientSchema, printSchema } from "graphql";
 
 export interface MetricService {
   getGraphQLSchema(): Promise<string>;
-  query(
-    graphQLQuery: string
-  ): Promise<Record<string, Array<Record<string, string | number>>>>;
+  query(graphQLQuery: string): Promise<{
+    data: Record<string, Record<string, string | number>[]>;
+    errors: any | undefined;
+  }>;
 }
 
 class MockMetricService implements MetricService {
@@ -34,7 +35,7 @@ class MockMetricService implements MetricService {
       ],
     };
 
-    return Promise.resolve(mockReturnData);
+    return Promise.resolve({ data: mockReturnData, errors: undefined });
   }
 
   async getGraphQLSchema(): Promise<string> {
@@ -90,19 +91,23 @@ class DemeterMetricService implements MetricService {
     return schema;
   }
 
-  async query(
-    graphQLQuery: string
-  ): Promise<Record<string, Record<string, string | number>[]>> {
+  async query(graphQLQuery: string): Promise<{
+    data: Record<string, Record<string, string | number>[]>;
+    errors: any | undefined;
+  }> {
     console.debug(`Starting metrics query`);
     const res = await this.fetch(
       JSON.stringify({
         query: graphQLQuery,
       })
     );
-    const { data } = await res.json();
-    console.debug(`Metrics query succeeded`);
+    const { data, errors } = await res.json();
+    if (errors) {
+      console.warn(`Metrics query failed`, errors);
+    }
+    console.debug(`Metrics query finished`);
 
-    return data;
+    return { data, errors };
   }
 }
 

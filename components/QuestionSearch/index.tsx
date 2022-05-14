@@ -4,6 +4,7 @@ import styles from "./QuestionSearch.module.css";
 const QuestionSearch = ({
   cardStyle,
   setData,
+  setErrors,
   setGraphQLQuery,
   setLoading,
 }: {
@@ -13,12 +14,14 @@ const QuestionSearch = ({
       Record<string, Array<Record<string, string | number>>> | undefined
     >
   >;
+  setErrors: Dispatch<SetStateAction<any>>;
   setGraphQLQuery: Dispatch<SetStateAction<string>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [query, setQuery] = useState("");
   const handleSubmit = useCallback(async () => {
     setLoading(true);
+    setErrors(undefined);
     setGraphQLQuery("");
     const res = await fetch("/api/search", {
       method: "POST",
@@ -28,11 +31,11 @@ const QuestionSearch = ({
       },
       body: JSON.stringify({ query }),
     });
-    const { graphQLQuery, data } = await res.json();
-    setData(data);
+    const { graphQLQuery, data, errors } = await res.json();
+    errors ? setErrors(errors) : setData(data);
     setGraphQLQuery(graphQLQuery);
     setLoading(false);
-  }, [query, setData, setGraphQLQuery, setLoading]);
+  }, [query, setData, setErrors, setGraphQLQuery, setLoading]);
   return (
     <form
       onSubmit={(e) => {

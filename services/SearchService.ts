@@ -5,6 +5,7 @@ interface ISearchService {
   query: (query: string) => Promise<{
     graphQLQuery: string;
     data: Record<string, Array<Record<string, string | number>>>;
+    errors?: any;
   }>;
 }
 
@@ -32,9 +33,9 @@ class SearchService implements ISearchService {
       query,
       graphQLSchema,
     });
-    const data = await metricService.query(graphQLQuery);
+    const { data, errors } = await metricService.query(graphQLQuery);
     console.debug(`Query finished`, { query });
-    return { graphQLQuery, data };
+    return { graphQLQuery, data, errors };
   }
 }
 
