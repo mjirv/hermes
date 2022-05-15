@@ -6,25 +6,21 @@
   display: flex;
   flex-direction: row;
   justify-content: safe space-around;
-  align-items: center;
+  min-height: 1vh;
 }
 
 .content {
-  min-height: 100vh;
-  padding: 4rem 0;
+  padding: 4rem 0 0 0;
   flex: 3;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
   flex: 1;
   margin: 2rem;
 }
