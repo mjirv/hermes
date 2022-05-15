@@ -62,7 +62,9 @@ const Home: NextPage = () => {
           <text className={styles.description}>{"Metrics Catalog"}</text>
           <div className={styles.code}>
             {schema
-              ? schema.replace(/type Query \{[\s\S]*?\}/i, "").trim()
+              ? schema
+                  .replaceAll(/(type Query|enum Grain) \{[\s\S]*?\}\n\n/g, "")
+                  .trim()
               : "loading..."}
           </div>
         </div>
