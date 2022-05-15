@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QuestionResults from "../components/QuestionResults";
 import QuestionSearch from "../components/QuestionSearch";
 import styles from "../styles/Home.module.css";
@@ -10,9 +10,18 @@ const Home: NextPage = () => {
   const [data, setData] = useState<
     Record<string, Array<Record<string, string | number>>> | undefined
   >();
-  const [errors, setErrors] = useState<Array<any> | undefined>(undefined);
+  const [schema, setSchema] = useState<string | undefined>();
+  const [errors, setErrors] = useState<Array<any> | undefined>();
   const [graphQLQuery, setGraphQLQuery] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!schema) {
+      fetch("/api/schema").then((response) =>
+        response.json().then(({ graphQLSchema }) => setSchema(graphQLSchema))
+      );
+    }
+  }, [schema]);
 
   return (
     <div className={styles.container}>
@@ -22,30 +31,40 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Hermes</h1>
+        <div className={styles.content}>
+          <h1 className={styles.title}>Hermes</h1>
 
-        <p className={styles.description}>
-          Get started by asking a question below!
-        </p>
+          <p className={styles.description}>
+            Get started by asking a question below!
+          </p>
 
-        <QuestionSearch
-          cardStyle={styles.card}
-          setData={setData}
-          setErrors={setErrors}
-          setGraphQLQuery={setGraphQLQuery}
-          setLoading={setLoading}
-        />
-        <div className={styles.resultsContainer}>
-          {graphQLQuery && (
-            <div className={styles.code}>
-              <text>{graphQLQuery}</text>
-            </div>
-          )}
-          {errors ? (
-            <text>{`Error: ${JSON.stringify(errors)}`}</text>
-          ) : (
-            <QuestionResults data={data} loading={loading} />
-          )}
+          <QuestionSearch
+            cardStyle={styles.card}
+            setData={setData}
+            setErrors={setErrors}
+            setGraphQLQuery={setGraphQLQuery}
+            setLoading={setLoading}
+          />
+          <div className={styles.resultsContainer}>
+            {graphQLQuery && (
+              <div className={styles.code}>
+                <text>{graphQLQuery}</text>
+              </div>
+            )}
+            {errors ? (
+              <text>{`Error: ${JSON.stringify(errors)}`}</text>
+            ) : (
+              <QuestionResults data={data} loading={loading} />
+            )}
+          </div>
+        </div>
+        <div className={styles.sidebar}>
+          <text className={styles.description}>{"Metrics Catalog"}</text>
+          <div className={styles.code}>
+            {schema
+              ? schema.replace(/type Query \{[\s\S]*?\}/i, "").trim()
+              : "loading..."}
+          </div>
         </div>
       </main>
 

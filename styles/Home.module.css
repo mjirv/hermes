@@ -3,13 +3,30 @@
 }
 
 .main {
+  display: flex;
+  flex-direction: row;
+  justify-content: safe space-around;
+  align-items: center;
+}
+
+.content {
   min-height: 100vh;
   padding: 4rem 0;
-  flex: 1;
+  flex: 3;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex: 1;
+  margin: 2rem;
 }
 
 .footer {
