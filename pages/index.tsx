@@ -27,7 +27,7 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Head>
         <title>Hermes</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/hermes_favicon.png" />
       </Head>
 
       <main className={styles.main}>
