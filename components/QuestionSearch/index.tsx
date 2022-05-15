@@ -48,7 +48,7 @@ const QuestionSearch = ({
       <input
         type="text"
         className={cardStyle}
-        placeholder={"How many orders were placed in Q4 2021?"}
+        placeholder={"How much $$$ did we make in 2018?"}
         onChange={(e) => setQuery(e.target.value)}
       ></input>
       <button type="submit" className={cardStyle}>
