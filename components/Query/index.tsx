@@ -42,6 +42,11 @@ const Query = ({ query }: { query?: string }) => {
   return (
     <>
       <div className={styles.queryNavBar}>
+        <QuestionSearch
+          cardStyle={styles.card}
+          initialQuery={query}
+          runQuery={runQuery}
+        />
         <ul>
           <li
             className={
@@ -64,18 +69,12 @@ const Query = ({ query }: { query?: string }) => {
         </ul>
       </div>
       <div className={styles.queryContainer}>
-        <QuestionSearch
-          cardStyle={styles.card}
-          initialQuery={query}
-          runQuery={runQuery}
-        />
         <div className={styles.resultsContainer}>
-          {graphQLQuery && (
+          {activeTab === Tabs.QUERY ? (
             <div className={styles.code}>
               <text>{graphQLQuery}</text>
             </div>
-          )}
-          {errors ? (
+          ) : errors ? (
             <text>{`Error: ${JSON.stringify(errors)}`}</text>
           ) : (
             <QuestionResults data={data} loading={loading} />
