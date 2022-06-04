@@ -4,11 +4,15 @@
 
 Hermes lets business users ask questions of your dbt metrics in plain English.
 
-[View live demo](https://hermes-odmf.onrender.com/)
+[Try live demo](https://hermes-odmf.onrender.com/)
 
 [![Deploy on Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-![hermesIndex](https://user-images.githubusercontent.com/5953854/172024445-c9116b35-f90a-422a-a6e6-eeb09f6b25cf.PNG)
+
+
+https://user-images.githubusercontent.com/5953854/172025009-e98660e2-78c3-4b75-adf5-4be9dd4a5762.mp4
+
+
 
 ## Quickstart
 
