@@ -11,7 +11,9 @@ const QuestionSearch = ({
   runQuery?: (query: string) => void;
   initialQuery?: string;
 }) => {
-  initialQuery && runQuery && runQuery(initialQuery);
+  useEffect(() => {
+    initialQuery && runQuery && runQuery(initialQuery);
+  }, [initialQuery, runQuery]);
   const [query, setQuery] = useState(initialQuery || "");
 
   return (

@@ -1,8 +1,20 @@
 import type { GetServerSideProps } from "next";
 import Query from "../../components/Query";
+import styles from "../../styles/Home.module.css";
+
+const Header = () => (
+  <div className={styles.header}>
+    <h1 className={styles.title}>Hermes</h1>
+  </div>
+);
 
 const QueryPage = ({ query }: { query: string }) => {
-  return <Query query={query} />;
+  return (
+    <>
+      <Header />
+      <Query query={query} />
+    </>
+  );
 };
 
 export default QueryPage;

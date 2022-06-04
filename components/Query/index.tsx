@@ -34,7 +34,7 @@ const Query = ({ query }: { query?: string }) => {
   );
 
   return (
-    <>
+    <div className={styles.queryContainer}>
       <QuestionSearch
         cardStyle={styles.card}
         initialQuery={query}
@@ -52,7 +52,7 @@ const Query = ({ query }: { query?: string }) => {
           <QuestionResults data={data} loading={loading} />
         )}
       </div>
-    </>
+    </div>
   );
 };
 

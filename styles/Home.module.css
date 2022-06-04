@@ -17,6 +17,10 @@
   align-items: center;
 }
 
+.queryContainer {
+  width: 100%;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -136,7 +140,6 @@
 .resultsContainer {
   display: flex;
   width: 100%;
-  max-width: 800px;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
