@@ -1,9 +1,10 @@
+import router from "next/router";
 import { useCallback, useState } from "react";
 import QuestionResults from "../../components/QuestionResults";
 import QuestionSearch from "../../components/QuestionSearch";
 import styles from "../../styles/Home.module.css";
 
-const Query = () => {
+const Query = ({ query }: { query?: string }) => {
   const [data, setData] = useState<
     Record<string, Array<Record<string, string | number>>> | undefined
   >();
@@ -11,7 +12,7 @@ const Query = () => {
   const [graphQLQuery, setGraphQLQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = useCallback(
+  const runQuery = useCallback(
     async (query: string) => {
       setLoading(true);
       setErrors(undefined);
@@ -34,7 +35,11 @@ const Query = () => {
 
   return (
     <>
-      <QuestionSearch cardStyle={styles.card} handleSubmit={handleSubmit} />
+      <QuestionSearch
+        cardStyle={styles.card}
+        initialQuery={query}
+        runQuery={runQuery}
+      />
       <div className={styles.resultsContainer}>
         {graphQLQuery && (
           <div className={styles.code}>

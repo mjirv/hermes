@@ -6,6 +6,7 @@ import Metrics from "../components/Metrics";
 import Query from "../components/Query";
 import QuestionSearch from "../components/QuestionSearch";
 import styles from "../styles/Home.module.css";
+import setQueryPath from "../utils/setQueryPath";
 
 const Header = () => (
   <div>
@@ -19,8 +20,6 @@ const Description = () => (
 
 const Home: NextPage = () => {
   const [showMetrics, setShowMetrics] = useState(false);
-  const encodeQuery = (query: string) =>
-    encodeURIComponent(Buffer.from(query).toString("base64"));
 
   return (
     <div className={styles.container}>
@@ -33,12 +32,7 @@ const Home: NextPage = () => {
         <div className={styles.content}>
           <Header />
           <Description />
-          <QuestionSearch
-            cardStyle={styles.card}
-            handleSubmit={(query: string) => {
-              router.push(`/queries/${encodeQuery(query)}`);
-            }}
-          />
+          <QuestionSearch cardStyle={styles.card} />
         </div>
         {showMetrics && <Metrics />}
       </main>

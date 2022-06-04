@@ -1,7 +1,8 @@
 import type { GetServerSideProps } from "next";
+import Query from "../../components/Query";
 
 const QueryPage = ({ query }: { query: string }) => {
-  return <>{query}</>;
+  return <Query query={query} />;
 };
 
 export default QueryPage;

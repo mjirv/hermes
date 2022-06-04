@@ -1,21 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import setQueryPath from "../../utils/setQueryPath";
 import styles from "./QuestionSearch.module.css";
 
 const QuestionSearch = ({
   cardStyle,
-  handleSubmit,
+  runQuery,
+  initialQuery,
 }: {
   cardStyle: string;
-  handleSubmit: (query: string) => void;
+  runQuery?: (query: string) => void;
+  initialQuery?: string;
 }) => {
-  const [query, setQuery] = useState("");
+  initialQuery && runQuery && runQuery(initialQuery);
+  const [query, setQuery] = useState(initialQuery || "");
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        handleSubmit(query);
+        setQueryPath(query);
       }}
       className={styles.searchContainer}
     >
@@ -24,7 +28,8 @@ const QuestionSearch = ({
         className={cardStyle}
         placeholder={"How much $$$ did we make in 2018?"}
         onChange={(e) => setQuery(e.target.value)}
-      ></input>
+        value={query}
+      />
       <button type="submit" className={cardStyle}>
         Submit
       </button>
