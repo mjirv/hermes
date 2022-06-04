@@ -8,6 +8,8 @@ Hermes lets business users ask questions of your dbt metrics in plain English.
 
 [![Deploy on Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+![hermesIndex](https://user-images.githubusercontent.com/5953854/172024445-c9116b35-f90a-422a-a6e6-eeb09f6b25cf.PNG)
+
 ## Quickstart
 
 1. Copy `example.env` to `.env` and update the environment variables
