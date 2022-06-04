@@ -28,9 +28,11 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div className={styles.content}>
-          <Header />
-          <Description />
-          <QuestionSearch cardStyle={styles.card} />
+          <div className={styles.indexContent}>
+            <Header />
+            <Description />
+            <QuestionSearch cardStyle={styles.card} />
+          </div>
         </div>
         {showMetrics && <Metrics />}
       </main>

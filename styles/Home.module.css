@@ -8,6 +8,7 @@
   justify-content: safe space-around;
   min-height: 1vh;
   justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
 }
@@ -19,6 +20,12 @@
   align-items: center;
   max-width: 800px;
   justify-self: center;
+}
+
+.indexContent {
+  padding: 4rem 0 0 0;
+  width: 100%;
+  height: 100%;
 }
 
 .queryNavBar {
