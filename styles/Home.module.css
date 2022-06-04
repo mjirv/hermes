@@ -22,6 +22,33 @@
   justify-self: center;
 }
 
+.queryNavBar {
+  background-color: #f8f8f8;
+  width: 100%;
+  display: inline-block;
+  padding: 5px 20px 0 20px;
+  /* border-bottom: 1px solid #eaeaea; */
+}
+
+.queryNavBar li {
+  float: left;
+  display: block;
+  padding: 5px 10px;
+  border-color: #eaeaea;
+  border-width: 1px 1px 0 0 !important;
+  border-style: solid;
+  border-radius: 5px 5px 0 0;
+}
+
+.queryNavBar li:hover {
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.queryNavBarActiveTab {
+  background-color: #ffffff;
+}
+
 .queryContainer {
   width: 100%;
   padding: 50px;
