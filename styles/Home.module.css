@@ -25,6 +25,15 @@
   margin: 2rem;
 }
 
+.header {
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  border-bottom: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+}
+
 .footer {
   display: flex;
   flex: 1;
