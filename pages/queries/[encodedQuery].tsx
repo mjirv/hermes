@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { encodedQuery } = context.query;
   return {
     props: {
-      query: Buffer.from(encodedQuery as string, "base64url").toString(),
+      query: Buffer.from(encodedQuery as string, "base64").toString(),
     },
   };
 };
