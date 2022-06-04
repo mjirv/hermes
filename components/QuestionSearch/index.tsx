@@ -1,47 +1,27 @@
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import { useEffect, useState } from "react";
+import setQueryPath from "../../utils/setQueryPath";
 import styles from "./QuestionSearch.module.css";
 
 const QuestionSearch = ({
   cardStyle,
-  setData,
-  setErrors,
-  setGraphQLQuery,
-  setLoading,
+  runQuery,
+  initialQuery,
 }: {
   cardStyle: string;
-  setData: Dispatch<
-    SetStateAction<
-      Record<string, Array<Record<string, string | number>>> | undefined
-    >
-  >;
-  setErrors: Dispatch<SetStateAction<any>>;
-  setGraphQLQuery: Dispatch<SetStateAction<string>>;
-  setLoading: Dispatch<SetStateAction<boolean>>;
+  runQuery?: (query: string) => void;
+  initialQuery?: string;
 }) => {
-  const [query, setQuery] = useState("");
-  const handleSubmit = useCallback(async () => {
-    setLoading(true);
-    setErrors(undefined);
-    setGraphQLQuery("");
-    const res = await fetch("/api/search", {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ query }),
-    });
-    const { graphQLQuery, data, errors } = await res.json();
-    errors ? setErrors(errors) : setData(data);
-    setGraphQLQuery(graphQLQuery);
-    setLoading(false);
-  }, [query, setData, setErrors, setGraphQLQuery, setLoading]);
+  useEffect(() => {
+    initialQuery && runQuery && runQuery(initialQuery);
+  }, [initialQuery, runQuery]);
+  const [query, setQuery] = useState(initialQuery || "");
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        handleSubmit();
+        setQueryPath(query);
       }}
       className={styles.searchContainer}
     >
@@ -50,8 +30,9 @@ const QuestionSearch = ({
         className={cardStyle}
         placeholder={"How much $$$ did we make in 2018?"}
         onChange={(e) => setQuery(e.target.value)}
-      ></input>
-      <button type="submit" className={cardStyle}>
+        value={query}
+      />
+      <button type="submit" className={styles.button}>
         Submit
       </button>
     </form>
