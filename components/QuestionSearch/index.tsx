@@ -32,7 +32,7 @@ const QuestionSearch = ({
         onChange={(e) => setQuery(e.target.value)}
         value={query}
       />
-      <button type="submit" className={cardStyle}>
+      <button type="submit" className={styles.button}>
         Submit
       </button>
     </form>
