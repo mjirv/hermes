@@ -1,12 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import router from "next/router";
+import Link from "next/link";
 import { useState } from "react";
 import Metrics from "../components/Metrics";
-import Query from "../components/Query";
 import QuestionSearch from "../components/QuestionSearch";
 import styles from "../styles/Home.module.css";
-import setQueryPath from "../utils/setQueryPath";
 
 const Header = () => (
   <div>
