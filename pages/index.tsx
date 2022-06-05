@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { useState } from "react";
 import Metrics from "../components/Metrics";
 import QuestionSearch from "../components/QuestionSearch";
+import useMetricsCatalog from "../hooks/useMetricsCatalog";
 import styles from "../styles/Home.module.css";
 
 const Header = () => (
@@ -17,7 +17,8 @@ const Description = () => (
 );
 
 const Home: NextPage = () => {
-  const [showMetrics, setShowMetrics] = useState(false);
+  const [showMetrics] = useState(false);
+  useMetricsCatalog(); // just run for now to make sure the API is running; later we can use this to display the metrics catalog on the index page
 
   return (
     <div className={styles.container}>

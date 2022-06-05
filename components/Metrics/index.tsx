@@ -1,15 +1,8 @@
-import { useEffect, useState } from "react";
+import useMetricsCatalog from "../../hooks/useMetricsCatalog";
 import styles from "../../styles/Home.module.css";
 
 const Metrics = () => {
-  const [schema, setSchema] = useState<string | undefined>();
-  useEffect(() => {
-    if (!schema) {
-      fetch("/api/schema").then((response) =>
-        response.json().then(({ graphQLSchema }) => setSchema(graphQLSchema))
-      );
-    }
-  }, [schema]);
+  const schema = useMetricsCatalog();
 
   return (
     <div className={styles.main}>
